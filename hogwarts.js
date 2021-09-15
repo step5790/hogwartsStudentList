@@ -17,29 +17,14 @@ const studentPrototype = {
   gender: "—",
   bloodStatus: "—",
   house: "—",
-  expelled: "EXPELLED",
-  prefect: "—",
-  inquisitorial: "—",
-  enroled: "ENROLLED",
+  prefect: true,
+  inquisitorial: true,
+  enrolled: false,
 };
 
 // ****************click events****************
 document.querySelector(".close").addEventListener("click", toggleModal);
 document.querySelector(".generate").addEventListener("click", init);
-
-function toggleModal() {
-  if (modalFlag) {
-    modalFlag = false;
-    console.log(modalFlag);
-    document.querySelector(".modal-container").classList.remove("hide");
-    document.querySelector(".main-container").classList.add("disable");
-  } else {
-    modalFlag = true;
-    console.log(modalFlag);
-    document.querySelector(".modal-container").classList.add("hide");
-    document.querySelector(".main-container").classList.remove("disable");
-  }
-}
 
 // ***************initialization**************
 function init() {
@@ -148,16 +133,43 @@ function displayStudent(student) {
     .querySelector("template#student")
     .content.cloneNode(true);
 
+  // *********check student status e.g. enrolled, expelled, inquisitor, prefect*************
+
+  let enrolledStatus;
+  let prefectStatus;
+  let insiquisitorStatus;
+
+  if (student.enrolled) {
+    enrolledStatus = "Enrolled";
+  } else {
+    enrolledStatus = "Expelled";
+  }
+
+  if (student.prefect) {
+    prefectStatus = "Prefect";
+  } else {
+    prefectStatus = "";
+  }
+
+  if (student.inquisitorial) {
+    insiquisitorStatus = "Inquisitorial";
+  } else {
+    insiquisitorStatus = "";
+  }
+
   // set clone data
+
   clone.querySelector("[data-field=lastName]").textContent = student.lastName;
   clone.querySelector("[data-field=firstName]").textContent = student.firstName;
   clone.querySelector("[data-field=midName]").textContent = student.middleName;
   clone.querySelector("[data-field=nickName]").textContent = student.nickName;
   clone.querySelector("[data-field=gender]").textContent = student.gender;
   clone.querySelector("[data-field=houseName]").textContent = student.house;
-  clone.querySelector("[data-field=status]").textContent = student.enroled;
+  clone.querySelector("[data-field=status]").textContent =
+    enrolledStatus + ", " + prefectStatus + ", " + insiquisitorStatus;
 
-  // *********set addEventListener to each student******************
+  // *********set addEventListener to each student with modal data insertion******************
+
   clone.querySelector(".cell").addEventListener("click", function () {
     const modalName =
       student.firstName + " " + student.middleName + " " + student.lastName;
@@ -166,10 +178,56 @@ function displayStudent(student) {
       "—",
       ""
     );
+    document.querySelector(".student-nickname span").textContent =
+      student.nickName;
+    document.querySelector(".student-house span").textContent = student.house;
+    document.querySelector(".student-gender span").textContent = student.gender;
+    document.querySelector(".student-blood span").textContent =
+      student.bloodStatus;
+
+    document.querySelector(".student-enrolled span").textContent =
+      enrolledStatus;
+    document.querySelector(".student-inquisitor span").textContent =
+      insiquisitorStatus;
+    document.querySelector(".student-prefect span").textContent = prefectStatus;
+
+    // ***************** check student house for color *******************
+    const houseColor = student.house.trim();
+
+    if (houseColor === "Hhufflepuff" || houseColor === "Hufflepuff") {
+      document.querySelector(".modal-container").style.background = "#ffed86";
+      document.querySelector(".crest-logo").src =
+        "http://meetstephen.dk/KEA/3rd_semester/Hogwarts/assets/hufflepuff.png";
+    } else if (houseColor === "Slytherin" || houseColor === "Sslytherin") {
+      document.querySelector(".modal-container").style.background = "#6eb177";
+      document.querySelector(".crest-logo").src =
+        "http://meetstephen.dk/KEA/3rd_semester/Hogwarts/assets/slytherin.png";
+    } else if (houseColor === "Ravenclaw" || houseColor === "Rravenclaw") {
+      document.querySelector(".modal-container").style.background = "#9ba7b7";
+      document.querySelector(".crest-logo").src =
+        "http://meetstephen.dk/KEA/3rd_semester/Hogwarts/assets/ravenclaw.png";
+    } else if (houseColor === "Ggryffindor" || houseColor === "Gryffindor") {
+      document.querySelector(".modal-container").style.background = "#d3a625";
+      document.querySelector(".crest-logo").src =
+        "http://meetstephen.dk/KEA/3rd_semester/Hogwarts/assets/gryfgindor.png";
+    }
   });
 
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
 }
 
-// **************************open modal for student******************
+// ************************** open modal ******************
+function toggleModal() {
+  if (modalFlag) {
+    modalFlag = false;
+    console.log(modalFlag);
+    document.querySelector(".modal-container").classList.remove("hide");
+    document.querySelector(".main-container").classList.add("disable");
+  } else {
+    modalFlag = true;
+    console.log(modalFlag);
+    document.querySelector(".modal-container").classList.add("hide");
+    document.querySelector(".main-container").classList.remove("disable");
+  }
+}

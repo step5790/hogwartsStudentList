@@ -166,8 +166,6 @@ button.generate:hover {
 /* ********modal*********** */
 
 .modal-container {
-  /* width: 700px;
-  height: 400px; */
   background: whitesmoke;
   position: fixed;
   margin: 15rem auto;
@@ -228,7 +226,6 @@ span.close {
 .crest-logo {
   width: 170px;
   height: 170px;
-  background: green;
   background-size: cover;
   background-repeat: no-repeat;
   margin-right: 1rem;
@@ -284,4 +281,23 @@ button.expel:hover {
   margin-right: 2rem;
   padding: 0.4rem;
   cursor: pointer;
+}
+
+.student-details {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  line-height: 0px;
+}
+
+p.student-enrolled {
+  color: green;
+}
+
+p.student-inquisitor {
+  color: #0b08c1;
+}
+
+p.student-prefect {
+  color: #ff9800;
 }
