@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow">
+  <title>Hogwarts School</title>
+  <link rel="stylesheet" href="hogwarts.css" />
+</head>
+
+<body>
+  <!-- ***********modal******** -->
+  <div class="modal-container hide">
+    <span class="close">❌</span>
+
+    <div class="modal-content">
+      <img class="modal-content-photo"
+        src="https://upload.wikimedia.org/wikipedia/en/d/d7/Harry_Potter_character_poster.jpg"></img>
+      <div class="modal-content-details">
+        <p class="student-name"><span>Harry Potter</span></p>
+        <div class="details">
+          <img class="crest-logo"
+            src="https://toppng.com/uploads/preview/ryffindor-crest-harry-potter-gryffindor-logo-11562851409msf1n4vpev.png"></img>
+          <div class="student-details">
+
+            <p class="student-nickname">Nickname:&nbsp;<span>Harry</span></p>
+            <p class="student-house">House:&nbsp;<span>Griffindor</span></p>
+            <p class="student-gender">Gender:&nbsp;<span>Boy</span></p>
+            <p class="student-blood">Blood-Status:&nbsp;<span>Hybrid</span></p>
+            <p class="student-status">Status:&nbsp;<span>ENROLLED</span></p>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-button">
+      <div class="button-group">
+        <button class="prefect">MAKE PREFECT</button>
+        <button class="inquisitor">MAKE INQUISITOR</button>
+      </div>
+      <button class="expel">EXPEL STUDENT</button>
+    </div>
+  </div>
+
+  <!-- ***********modal******** -->
+
+  <main class="main-container">
+    <header>
+      <div class="logo"></div>
+      <div class="tittle">
+        HOGWARTS SCHOOL OF WIZARDRY <br />Class of 1991
+      </div>
+    </header>
+
+    <div class="filter-container">
+      <select name="options" id="dropDown">
+        <option value="1">HOUSE</option>
+        <option value="2">EXPELLED</option>
+        <option value="3">PREFECTS</option>
+        <option value="4">BLOOD STATUS</option>
+        <option value="5">INQUISITORIAL</option>
+      </select>
+
+      <input type="text" placeholder="Search..." class="searchInput" />
+    </div>
+
+    <div class="table-container">
+      <table id="list">
+        <thead>
+          <tr id="sorting">
+            <th data-action="sort" data-sort-direction="asc" data-sort="lastName">
+              Last Name
+            </th>
+            <th data-action="sort" data-sort-direction="desc" data-sort="firstName">
+              First Name
+            </th>
+            <th data-action="sort" data-sort-direction="asc" data-sort="midName">
+              Middle Name
+            </th>
+            <th data-action="sort" data-sort-direction="desc" data-sort="nickName">
+              Nickname
+            </th>
+            <th data-action="sort" data-sort-direction="asc" data-sort="gender">
+              Gender
+            </th>
+            <th data-action="sort" data-sort-direction="desc" data-sort="house">
+              House
+            </th>
+            <th data-action="sort" data-sort-direction="asc" data-sort="status">
+              Status
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- template will be copied and inserted here -->
+        </tbody>
+      </table>
+    </div>
+
+    <div class="button-container">
+      <button div class="generate">VIEW</button>
+    </div>
+
+    <template id="student">
+      <tr class="cell">
+        <td data-field="lastName">Last Name</td>
+        <td data-field="firstName">First Name</td>
+        <td data-field="midName">Middle Name</td>
+        <td data-field="nickName">Nickname</td>
+        <td data-field="gender">Gender</td>
+        <td data-field="houseName">House</td>
+        <td data-field="status">Status</td>
+      </tr>
+    </template>
+  </main>
+</body>
+<script src="hogwarts.js"></script>
+
+</html>

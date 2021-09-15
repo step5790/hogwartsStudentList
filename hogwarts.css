@@ -1,0 +1,287 @@
+body {
+  margin: auto;
+}
+
+.main-container {
+  background-color: #ffe8b3;
+}
+
+.tittle {
+  width: 72%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: #e5771e;
+  font-size: 3rem;
+  justify-content: center;
+  color: wheat;
+}
+
+.logo {
+  width: 200px;
+  height: 200px;
+  background-image: url(/assets/logo.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2em;
+  margin-top: 7em;
+}
+
+select#dropDown {
+  width: 9rem;
+  border-color: #ff000000;
+  padding: 7px;
+  border: 1px solid;
+  cursor: pointer;
+}
+
+input.searchInput {
+  width: 15rem;
+  padding: 7px;
+}
+
+input::placeholder {
+  color: grey;
+  font-size: 1.2em;
+  font-style: italic;
+}
+
+/* ********table*************** */
+
+.table-container {
+  height: 25em;
+  margin: 2em;
+  background-color: #ffffff94;
+}
+
+table {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  width: 100%;
+}
+
+table thead {
+  /* head takes the height it requires, 
+    and it's not scaled when table is resized */
+  flex: 0 0 auto;
+  width: calc(100% - 1.1em);
+}
+
+table tbody {
+  /* body takes all the remaining available space */
+  flex: 1 1 auto;
+  display: block;
+  overflow-y: scroll;
+}
+
+table tbody tr {
+  width: 100%;
+}
+
+table thead,
+table tbody tr {
+  display: table;
+  table-layout: fixed;
+}
+
+/* decorations */
+.table-container {
+  border: 1px solid black;
+  padding: 0.3em;
+}
+
+table td,
+table th {
+  padding: 0.3em;
+  border: 1px solid #c0aeb587;
+}
+
+table th {
+  border: 1px solid grey;
+}
+
+/* ********table*************** */
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 2em;
+  padding-bottom: 5rem;
+}
+
+button.generate {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 3rem;
+  padding-left: 3rem;
+  cursor: url("/assets/cursor.png"), auto;
+  background-color: #8defe1;
+  transition-duration: 0.4s;
+}
+
+button.generate:hover {
+  background: rgb(193 230 239);
+}
+
+/* ******effects******* */
+
+.disable {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.modal-content-photo {
+  height: 110px;
+  width: 110px;
+  background: rgb(39, 202, 243);
+}
+
+.hide {
+  display: none;
+}
+
+.unhide {
+  display: block;
+}
+
+/* ********modal*********** */
+
+.modal-container {
+  /* width: 700px;
+  height: 400px; */
+  background: whitesmoke;
+  position: fixed;
+  margin: 15rem auto;
+  left: 0;
+  right: 0;
+  z-index: 1;
+
+  border-top-left-radius: 37px 140px;
+  border-top-right-radius: 23px 130px;
+  border-bottom-left-radius: 110px 19px;
+  border-bottom-right-radius: 120px 24px;
+
+  border: solid 3px #6e7491;
+  padding: 40px 60px;
+  max-width: 800px;
+  width: 70%;
+  margin: 100px auto 0;
+  font-size: 17px;
+  line-height: 28px;
+  box-shadow: 3px 15px 8px -10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+span.close {
+  float: right;
+  cursor: pointer;
+}
+
+.details {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.modal-content-photo {
+  height: 300px;
+  width: 280px;
+  background: red;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 2rem;
+  box-shadow: 18px 18px 8px -10px rgb(0 0 0 / 30%);
+  border-top-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+}
+
+.crest-logo {
+  width: 170px;
+  height: 170px;
+  background: green;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-right: 1rem;
+}
+
+p.student-name {
+  text-align: center;
+  font-size: 30px;
+}
+
+.student-details > p span {
+  font-weight: lighter;
+}
+
+.student-details > p {
+  font-weight: bold;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.button-group > button {
+  background-color: rgb(247, 188, 137);
+  color: #484545;
+}
+
+.button-group > button:hover {
+  background-color: rgb(245, 206, 171);
+}
+
+button.expel {
+  background-color: #f44336;
+  color: antiquewhite;
+}
+
+button.expel:hover {
+  background-color: #f58b83;
+  color: antiquewhite;
+}
+
+.modal-button {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.modal-button button {
+  margin-right: 2rem;
+  padding: 0.4rem;
+  cursor: pointer;
+}
