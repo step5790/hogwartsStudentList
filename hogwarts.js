@@ -10,6 +10,10 @@ let jsonData = [];
 let useFilterData = [];
 let filteredData = [];
 let modalFlag = true;
+let numberOfGryffindor = 0;
+let numberOfHufflepuff = 0;
+let numberOfSlytherin = 0;
+let numberOfRavenclaw = 0;
 
 const studentPrototype = {
   lastName: "—",
@@ -182,22 +186,31 @@ function setSort(sortBy, sortDir) {
 function filterList(filteredList) {
   if (settings.filterBy === "gryffindor") {
     filteredList = allStudent.filter(isGryffindor);
+    console.log("Number of " + settings.filterBy + " " + filteredList.length);
   } else if (settings.filterBy === "slytherin") {
     filteredList = allStudent.filter(isSlytherin);
+    console.log("Number of " + settings.filterBy + " " + filteredList.length);
   } else if (settings.filterBy === "hufflepuff") {
     filteredList = allStudent.filter(isHufflepuff);
+    console.log("Number of " + settings.filterBy + " " + filteredList.length);
   } else if (settings.filterBy === "ravenclaw") {
     filteredList = allStudent.filter(isRavenclaw);
+    console.log("Number of " + settings.filterBy + " " + filteredList.length);
   } else if (settings.filterBy === "enrolled") {
     filteredList = allStudent.filter(isEnrolled);
+    console.log("Number of " + settings.filterBy + " " + filteredList.length);
   } else if (settings.filterBy === "expelled") {
     filteredList = allStudent.filter(isExpelled);
+    console.log("Number of " + settings.filterBy + " " + filteredList.length);
   } else if (settings.filterBy === "prefects") {
     filteredList = allStudent.filter(isPrefects);
+    console.log("Number of " + settings.filterBy + " " + filteredList.length);
   } else if (settings.filterBy === "blood-status") {
     filteredList = allStudent.filter(isBloodStatus);
+    console.log("Number of " + settings.filterBy + " " + filteredList.length);
   } else if (settings.filterBy === "inquisitorial") {
     filteredList = allStudent.filter(isInquisitorial);
+    console.log("Number of " + settings.filterBy + " " + filteredList.length);
   }
   return filteredList;
 }
@@ -263,6 +276,19 @@ function sortList(sortedList) {
   return sortedList;
 }
 
+// ********counting students*********
+function studentCounter(student) {
+  if (student.house === "Ravenclaw") {
+    numberOfRavenclaw++;
+  } else if (student.house === "Hufflepuff") {
+    numberOfHufflepuff++;
+  } else if (student.house === "Slytherin") {
+    numberOfSlytherin++;
+  } else if (student.house === "Gryffindor") {
+    numberOfGryffindor++;
+  }
+}
+
 // ******build list for combining filter and sort************
 function buildList() {
   const currentList = filterList(allStudent);
@@ -318,8 +344,21 @@ function displayStudent(student) {
     insiquisitorStatus = "";
   }
 
-  // set clone data
+  // ******display count number************
+  document.querySelector(".numberOfstudents span").innerHTML =
+    allStudent.length;
+  document.querySelector(".numberOfenrolled span").innerHTML = "";
+  document.querySelector(".numberOfexpelled span").innerHTML = "";
+  document.querySelector(".numberOfGryffindor span").innerHTML =
+    numberOfGryffindor;
+  document.querySelector(".numberOfHufflepuff span").innerHTML =
+    numberOfHufflepuff;
+  document.querySelector(".numberOfSlytherin span").innerHTML =
+    numberOfSlytherin;
+  document.querySelector(".numberOfRavenclaw span").innerHTML =
+    numberOfRavenclaw;
 
+  // set clone data
   clone.querySelector("[data-field=lastName]").textContent = student.lastName;
   clone.querySelector("[data-field=firstName]").textContent = student.firstName;
   clone.querySelector("[data-field=midName]").textContent = student.middleName;
@@ -330,7 +369,6 @@ function displayStudent(student) {
     enrolledStatus + ", " + prefectStatus + ", " + insiquisitorStatus;
 
   // *********set addEventListener to each student with modal data insertion******************
-
   clone.querySelector(".cell").addEventListener("click", function () {
     const modalName =
       student.firstName + " " + student.middleName + " " + student.lastName;
@@ -369,6 +407,9 @@ function displayStudent(student) {
       document.querySelector(".crest-logo").src = "assets/griffyndor.png";
     }
   });
+
+  // **********call count students function*********
+  studentCounter(student);
 
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);

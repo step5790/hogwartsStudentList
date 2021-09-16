@@ -1,5 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap");
+
 body {
   margin: auto;
+  font-family: "Cormorant Garamond", serif;
 }
 
 .main-container {
@@ -11,6 +14,7 @@ body {
   display: flex;
   justify-content: center;
   text-align: center;
+  font-family: "Times New Roman", Times, serif;
 }
 
 header {
@@ -125,7 +129,6 @@ table th {
   justify-content: flex-end;
   align-items: center;
   margin: 2em;
-  padding-bottom: 5rem;
 }
 
 button.generate {
@@ -300,4 +303,20 @@ p.student-inquisitor {
 
 p.student-prefect {
   color: #ff9800;
+}
+
+.student-count {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding-bottom: 40px;
+}
+
+.student-count > p {
+  font-weight: bold;
+}
+
+.student-count > span {
+  font-weight: lighter;
 }
