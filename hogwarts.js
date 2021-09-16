@@ -136,6 +136,8 @@ function init() {
       console.log(newMiddleName);
     }
 
+    // **********call count students function*********
+    studentCounter(student);
     return student;
   }
 
@@ -407,9 +409,6 @@ function displayStudent(student) {
       document.querySelector(".crest-logo").src = "assets/griffyndor.png";
     }
   });
-
-  // **********call count students function*********
-  studentCounter(student);
 
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
