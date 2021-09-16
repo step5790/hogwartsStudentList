@@ -21,8 +21,7 @@
       <div class="modal-content-details">
         <p class="student-name"><span>Harry Potter</span></p>
         <div class="details">
-          <img class="crest-logo"
-            src="https://toppng.com/uploads/preview/ryffindor-crest-harry-potter-gryffindor-logo-11562851409msf1n4vpev.png"></img>
+          <img class="crest-logo"></img>
           <div class="student-details">
 
             <p class="student-nickname">Nickname:&nbsp;<span>Harry</span></p>
@@ -54,17 +53,22 @@
     <header>
       <div class="logo"></div>
       <div class="tittle">
-        HOGWARTS SCHOOL OF WIZARDRY <br />Class of 1991
+        HOGWARTS SCHOOL <br />OF WIZARDRY <br />Class of 1991
       </div>
     </header>
 
     <div class="filter-container">
-      <select name="options" id="dropDown">
-        <option value="1">HOUSE</option>
-        <option value="2">EXPELLED</option>
-        <option value="3">PREFECTS</option>
-        <option value="4">BLOOD STATUS</option>
-        <option value="5">INQUISITORIAL</option>
+      <select name="options" id="dropDown" onchange="selectFilter()">
+        <option value="all" data-action="filter" data-filter="all">ALL</option>
+        <option value="gryffindor" data-action="filter" data-filter="gryffindor">GRYFFINDOR</option>
+        <option value="slytherin" data-action="filter" data-filter="slytherin">SLYTHERIN</option>
+        <option value="hufflepuff" data-action="filter" data-filter="hufflepuff">HUFFLEPUFF</option>
+        <option value="ravenclaw" data-action="filter" data-filter="ravenclaw">RAVENCLAW</option>
+        <option value="enrolled" data-action="filter" data-filter="enrolled">ENROLLED</option>
+        <option value="expelled" data-action="filter" data-filter="expelled">EXPELLED</option>
+        <option value="prefects" data-action="filter" data-filter="prefects">PREFECTS</option>
+        <option value="blood-status" data-action="filter" data-filter="blood-status">BLOOD STATUS</option>
+        <option value="inquisitorial" data-action="filter" data-filter="inquisitorial">INQUISITORIAL</option>
       </select>
 
       <input type="text" placeholder="Search..." class="searchInput" />

@@ -1,5 +1,7 @@
 "use strict";
 
+window.addEventListener("DOMContentLoaded", init);
+
 const url = "https://petlatkea.dk/2021/hogwarts/students.json";
 const urlFamilies = "https://petlatkea.dk/2021/hogwarts/families.json";
 
@@ -19,12 +21,27 @@ const studentPrototype = {
   house: "—",
   prefect: true,
   inquisitorial: true,
-  enrolled: false,
+  enrolled: true,
+};
+
+const settings = {
+  filterBy: "all",
+  sortBy: "lastName",
+  sortDir: "asc",
 };
 
 // ****************click events****************
-document.querySelector(".close").addEventListener("click", toggleModal);
-document.querySelector(".generate").addEventListener("click", init);
+function registerButton() {
+  document.querySelector(".close").addEventListener("click", toggleModal);
+
+  // document
+  //   .querySelectorAll("[data-action='sort']")
+  //   .addEventListener("change", selectFilter);
+
+  document
+    .querySelectorAll("[data-action='sort']")
+    .forEach((option) => option.addEventListener("click", selectSort));
+}
 
 // ***************initialization**************
 function init() {
@@ -41,69 +58,217 @@ function init() {
   //     .then((data) => {
   //       findBloodStatus(data);
   //     });
-}
 
-//   *******************clean and load data***************
-function prepareDatas(jsonData) {
-  allStudent = jsonData.map(prepareData);
+  //   *******************clean and load data***************
+  function prepareDatas(jsonData) {
+    allStudent = jsonData.map(prepareData);
 
-  // TODO: This might not be the function we want to call first
-  displayList(allStudent);
-}
-
-function prepareData(students) {
-  const student = Object.create(studentPrototype);
-  const fullname = students.fullname.trim();
-  const firstSpace = fullname.indexOf(" ");
-  const lastSpace = fullname.lastIndexOf(" ");
-
-  const firstName = fullname.substring(0, firstSpace);
-  const lastName = fullname.substring(lastSpace + 1);
-  const middleName = fullname.substring(firstSpace + 1, lastSpace);
-  const newFirstName =
-    firstName.substring(0, 1).toUpperCase() +
-    firstName.substring(1).toLowerCase();
-
-  const newLastName =
-    lastName.substring(0, 1).toUpperCase() +
-    lastName.substring(1).toLowerCase();
-
-  const newMiddleName =
-    middleName.substring(0, 1).toUpperCase() +
-    middleName.substring(1).toLowerCase();
-
-  const house = students.house.trim();
-
-  student.firstName = newFirstName;
-  student.lastName = newLastName;
-
-  student.gender =
-    students.gender.substring(0, 1).toUpperCase() +
-    students.gender.substring(1).toLowerCase();
-
-  student.house =
-    house.substring(0, 1).toUpperCase() +
-    students.house.substring(1).toLowerCase();
-
-  // ***************check first name*****************
-  if (students.fullname.trim().indexOf(" ") < 0) {
-    console.log("first name only");
-    console.log(students.fullname.trim());
-    student.firstName = students.fullname.trim();
-    student.lastName = "—";
-    student.middleName = "—";
+    // TODO: This might not be the function we want to call first
+    displayList(allStudent);
   }
 
-  //  ***************check middle name***************
-  if (newMiddleName === " ") {
-    student.middleName = "—";
-    console.log("no middle name");
-  } else if (newMiddleName !== " ") {
-    student.middleName = newMiddleName;
-    console.log(newMiddleName);
+  function prepareData(students) {
+    const student = Object.create(studentPrototype);
+    const fullname = students.fullname.trim();
+    const firstSpace = fullname.indexOf(" ");
+    const lastSpace = fullname.lastIndexOf(" ");
+
+    const firstName = fullname.substring(0, firstSpace);
+    const lastName = fullname.substring(lastSpace + 1);
+    const middleName = fullname.substring(firstSpace + 1, lastSpace);
+    const newFirstName =
+      firstName.substring(0, 1).toUpperCase() +
+      firstName.substring(1).toLowerCase();
+
+    const newLastName =
+      lastName.substring(0, 1).toUpperCase() +
+      lastName.substring(1).toLowerCase();
+
+    const newMiddleName =
+      middleName.substring(0, 1).toUpperCase() +
+      middleName.substring(1).toLowerCase();
+
+    const house = students.house.trim();
+
+    student.firstName = newFirstName;
+    student.lastName = newLastName;
+
+    student.gender =
+      students.gender.substring(0, 1).toUpperCase() +
+      students.gender.substring(1).toLowerCase();
+
+    student.house =
+      house.substring(0, 1).toUpperCase() +
+      students.house.substring(1).toLowerCase();
+
+    // check if house name is double letters
+    if (
+      student.house.charAt(0).toLowerCase() ===
+      student.house.charAt(1).toLowerCase()
+    ) {
+      student.house = house.replace(student.house.charAt(1), "");
+      student.house =
+        house.slice(0, 1) + house.substring(1, house.length).toLowerCase();
+      console.log("1" + student.house);
+    } else {
+      console.log("2" + student.house);
+    }
+
+    // ***************check first name*****************
+    if (students.fullname.trim().indexOf(" ") < 0) {
+      console.log("first name only");
+      console.log(students.fullname.trim());
+      student.firstName = students.fullname.trim();
+      student.lastName = "—";
+      student.middleName = "—";
+    }
+
+    //  ***************check middle name***************
+    if (newMiddleName === " ") {
+      student.middleName = "—";
+      console.log("no middle name");
+    } else if (newMiddleName !== " ") {
+      student.middleName = newMiddleName;
+      console.log(newMiddleName);
+    }
+
+    return student;
   }
 
-  return student;
+  registerButton();
+}
+
+// **************filter events, get target for sort and filter value*********************
+function selectFilter(event) {
+  const filter = document.getElementById("dropDown").value;
+  setFilter(filter);
+}
+
+//  setFilter for selectFilter function
+
+function setFilter(filter) {
+  settings.filterBy = filter;
+  buildList();
+}
+
+// setting for selectSort
+
+function selectSort(event) {
+  const sortBy = event.target.dataset.sort;
+  const sortDir = event.target.dataset.sortDirection;
+
+  //  flagging directions
+  if (sortDir === "asc") {
+    event.target.dataset.sortDirection = "desc";
+  } else if (sortDir === "desc") {
+    event.target.dataset.sortDirection = "asc";
+  }
+
+  setSort(sortBy, sortDir);
+}
+
+//  setting for setSort, and then go to buildList
+
+function setSort(sortBy, sortDir) {
+  settings.sortBy = sortBy;
+  settings.sortDir = sortDir;
+  buildList();
+}
+
+// ****************filtering and sorting*******************
+
+// filtering
+
+function filterList(filteredList) {
+  if (settings.filterBy === "gryffindor") {
+    filteredList = allStudent.filter(isGryffindor);
+  } else if (settings.filterBy === "slytherin") {
+    filteredList = allStudent.filter(isSlytherin);
+  } else if (settings.filterBy === "hufflepuff") {
+    filteredList = allStudent.filter(isHufflepuff);
+  } else if (settings.filterBy === "ravenclaw") {
+    filteredList = allStudent.filter(isRavenclaw);
+  } else if (settings.filterBy === "enrolled") {
+    filteredList = allStudent.filter(isEnrolled);
+  } else if (settings.filterBy === "expelled") {
+    filteredList = allStudent.filter(isExpelled);
+  } else if (settings.filterBy === "prefects") {
+    filteredList = allStudent.filter(isPrefects);
+  } else if (settings.filterBy === "blood-status") {
+    filteredList = allStudent.filter(isBloodStatus);
+  } else if (settings.filterBy === "inquisitorial") {
+    filteredList = allStudent.filter(isInquisitorial);
+  }
+  return filteredList;
+}
+
+//  filtering function call
+function isGryffindor(student) {
+  return student.house === "Gryffindor";
+}
+
+function isSlytherin(student) {
+  return student.house === "Slytherin";
+}
+
+function isHufflepuff(student) {
+  return student.house === "Hufflepuff";
+}
+
+function isRavenclaw(student) {
+  return student.house === "Ravenclaw";
+}
+
+function isEnrolled(student) {
+  return student.enrolled === true;
+}
+
+function isExpelled(student) {
+  return student.enrolled === false;
+}
+
+function isPrefects(student) {
+  return student.prefect === true;
+}
+
+function isBloodStatus(student) {
+  return student.bloodStatus === "—";
+}
+
+function isInquisitorial(student) {
+  return student.inquisitorial === true;
+}
+
+// *******************sorting algorithm***************
+function sortList(sortedList) {
+  let direction = 1;
+
+  if (settings.sortDir === "desc") {
+    direction = -1;
+  } else {
+    direction = 1;
+  }
+
+  console.log(settings.sortDir);
+
+  sortedList = sortedList.sort(sortByProperty);
+
+  function sortByProperty(a, b) {
+    if (a[settings.sortBy] < b[settings.sortBy]) {
+      return -1 * direction;
+    } else {
+      return 1 * direction;
+    }
+  }
+  return sortedList;
+}
+
+// ******build list for combining filter and sort************
+function buildList() {
+  const currentList = filterList(allStudent);
+  const sortedList = sortList(currentList);
+  console.log(sortedList);
+  displayList(sortedList);
 }
 
 function displayList(students) {
@@ -113,10 +278,6 @@ function displayList(students) {
   // build a new list
   students.forEach(displayStudent);
 }
-
-// function capitalize(name) {
-//   return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-// }
 
 //   *************************display data***************
 function displayStudent(students) {
@@ -196,20 +357,16 @@ function displayStudent(student) {
 
     if (houseColor === "Hhufflepuff" || houseColor === "Hufflepuff") {
       document.querySelector(".modal-container").style.background = "#ffed86";
-      document.querySelector(".crest-logo").src =
-        "http://meetstephen.dk/KEA/3rd_semester/Hogwarts/assets/hufflepuff.png";
+      document.querySelector(".crest-logo").src = "assets/hufflepuff.png";
     } else if (houseColor === "Slytherin" || houseColor === "Sslytherin") {
       document.querySelector(".modal-container").style.background = "#6eb177";
-      document.querySelector(".crest-logo").src =
-        "http://meetstephen.dk/KEA/3rd_semester/Hogwarts/assets/slytherin.png";
+      document.querySelector(".crest-logo").src = "assets/slytherin.png";
     } else if (houseColor === "Ravenclaw" || houseColor === "Rravenclaw") {
       document.querySelector(".modal-container").style.background = "#9ba7b7";
-      document.querySelector(".crest-logo").src =
-        "http://meetstephen.dk/KEA/3rd_semester/Hogwarts/assets/ravenclaw.png";
+      document.querySelector(".crest-logo").src = "assets/ravenclaw.png";
     } else if (houseColor === "Ggryffindor" || houseColor === "Gryffindor") {
       document.querySelector(".modal-container").style.background = "#d3a625";
-      document.querySelector(".crest-logo").src =
-        "http://meetstephen.dk/KEA/3rd_semester/Hogwarts/assets/gryfgindor.png";
+      document.querySelector(".crest-logo").src = "assets/griffyndor.png";
     }
   });
 
