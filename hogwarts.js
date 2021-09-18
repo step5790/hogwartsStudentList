@@ -4,8 +4,10 @@ window.addEventListener("DOMContentLoaded", init);
 
 const url = "https://petlatkea.dk/2021/hogwarts/students.json";
 const urlFamilies = "https://petlatkea.dk/2021/hogwarts/families.json";
+const urlImage = "../filenames.json";
 
 let allStudent = [];
+let studentImage = [];
 let jsonData = [];
 let useFilterData = [];
 let filteredData = [];
@@ -38,10 +40,6 @@ const settings = {
 function registerButton() {
   document.querySelector(".close").addEventListener("click", toggleModal);
 
-  // document
-  //   .querySelectorAll("[data-action='sort']")
-  //   .addEventListener("change", selectFilter);
-
   document
     .querySelectorAll("[data-action='sort']")
     .forEach((option) => option.addEventListener("click", selectSort));
@@ -56,6 +54,26 @@ function init() {
       // injectMyself();
     });
 
+  // ******fetch image json*******
+  fetch(urlImage)
+    .then((response) => response.json())
+    .then((jsonImage) => {
+      prepareImageDatas(jsonImage);
+    });
+
+  function prepareImageDatas(jsonImage) {
+    studentImage = jsonImage;
+    console.log(studentImage);
+    // allImage = jsonImage.map(prepareImageData);
+  }
+
+  // function prepareImageData(images) {
+  //   const imageLink = Object.create(studentImagePrototype);
+  //   const imageStudentLink = images.image;
+
+  //   console.log(imageStudentLink);
+  //   return imageLink;
+  // }
   // *************blood status************
   //   fetch(urlFamilies)
   //     .then((e) => e.json())
@@ -63,10 +81,9 @@ function init() {
   //       findBloodStatus(data);
   //     });
 
-  //   *******************clean and load data***************
+  //   *******************clean and load student data***************
   function prepareDatas(jsonData) {
     allStudent = jsonData.map(prepareData);
-
     // TODO: This might not be the function we want to call first
     displayList(allStudent);
   }
@@ -113,7 +130,6 @@ function init() {
       student.house = house.replace(student.house.charAt(1), "");
       student.house =
         house.slice(0, 1) + house.substring(1, house.length).toLowerCase();
-      console.log("1" + student.house);
     } else {
       console.log("2" + student.house);
     }
@@ -130,10 +146,8 @@ function init() {
     //  ***************check middle name***************
     if (newMiddleName === " ") {
       student.middleName = "—";
-      console.log("no middle name");
     } else if (newMiddleName !== " ") {
       student.middleName = newMiddleName;
-      console.log(newMiddleName);
     }
 
     // **********call count students function*********
@@ -307,15 +321,6 @@ function displayList(students) {
   students.forEach(displayStudent);
 }
 
-//   *************************display data***************
-function displayStudent(students) {
-  // clear the list
-  document.querySelector("#list tbody").innerHTML = "";
-
-  // build a new list
-  students.forEach(displayStudent);
-}
-
 function displayStudent(student) {
   // create clone
   const clone = document
@@ -407,6 +412,34 @@ function displayStudent(student) {
     } else if (houseColor === "Ggryffindor" || houseColor === "Gryffindor") {
       document.querySelector(".modal-container").style.background = "#d3a625";
       document.querySelector(".crest-logo").src = "assets/griffyndor.png";
+    }
+
+    // **************check student for image***************
+    let i;
+
+    for (i = 0; i < studentImage.length; i++) {
+      const studentImageCheckLastName = student.lastName.toLowerCase();
+      const studentImageCheckFirstName = student.firstName.toLowerCase();
+      const cleanStudentImage = studentImage[i].image.substring(
+        0,
+        studentImage[i].image.indexOf("_")
+      );
+      console.log(studentImageCheckFirstName);
+      console.log(cleanStudentImage);
+      if (
+        studentImageCheckFirstName.toLowerCase().includes(cleanStudentImage) ||
+        studentImageCheckLastName.toLowerCase().includes(cleanStudentImage)
+      ) {
+        const imageName = studentImage[i].image;
+        document.querySelector(
+          ".modal-content-photo"
+        ).src = `assets/pics/${imageName}`;
+        console.log("with image");
+      } else {
+        // .querySelector(".modal-content-photo").src = "";
+
+        console.log("no image");
+      }
     }
   });
 
