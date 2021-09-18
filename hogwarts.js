@@ -381,7 +381,7 @@ function displayStudent(student) {
   }
 
   if (student.inquisitorial) {
-    insiquisitorStatus = "Added to Inquisitorial Squad";
+    insiquisitorStatus = "Inquisitorial";
   } else {
     insiquisitorStatus = "";
   }
@@ -412,7 +412,14 @@ function displayStudent(student) {
 
   // *********set addEventListener to each student with modal data insertion******************
   clone.querySelector(".cell").addEventListener("click", function () {
-    toggleModal(student);
+    toggleModal();
+
+    // ********check if student is already inquisitorial**********
+    if (student.inquisitorial === true) {
+      document.querySelector(".inquisitor").disabled = true;
+      document.querySelector(".inquisitor").style.background = "grey";
+    }
+    // **********************************************************
 
     document.querySelector(".student-name").textContent =
       student.firstName.replace("—", " ");
@@ -509,16 +516,20 @@ function displayStudent(student) {
 
         if (allStudent[index].bloodStatus === "Pure") {
           console.log("inquisitorial");
+          document.querySelector(".inquisitor").disabled = true;
+          document.querySelector(".inquisitor").style.background = "grey";
           document.querySelector(".student-inquisitor span").textContent =
-            "Added to Inquisitorial Squad";
+            "Inquisitorial";
           allStudent[index].inquisitorial = true;
         } else if (allStudent[index].house === "Slytherin") {
           console.log("inquisitorial");
+          document.querySelector(".inquisitor").disabled = true;
+          document.querySelector(".inquisitor").style.background = "grey";
           document.querySelector(".student-inquisitor span").textContent =
-            "Added to Inquisitorial Squad";
+            "Inquisitorial";
           allStudent[index].inquisitorial = true;
         } else {
-          console.log("not inquisitorial");
+          alert("Not legible for Inquisitorial Squad");
         }
       });
   });
@@ -529,6 +540,9 @@ function displayStudent(student) {
 
 // ************************** open modal ******************
 function toggleModal() {
+  document.querySelector(".inquisitor").disabled = false;
+  document.querySelector(".inquisitor").style.background = "rgb(247 188 137)";
+
   if (modalFlag) {
     modalFlag = false;
     console.log(modalFlag);
