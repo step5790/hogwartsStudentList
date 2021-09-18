@@ -415,30 +415,26 @@ function displayStudent(student) {
     }
 
     // **************check student for image***************
-    let i;
+    let i = 0;
 
     for (i = 0; i < studentImage.length; i++) {
-      const studentImageCheckLastName = student.lastName.toLowerCase();
-      const studentImageCheckFirstName = student.firstName.toLowerCase();
+      // const studentImageCheckLastName = student.lastName.toLowerCase();
+      // const studentImageCheckFirstName = student.firstName.toLowerCase();
       const cleanStudentImage = studentImage[i].image.substring(
         0,
         studentImage[i].image.indexOf("_")
       );
-      console.log(studentImageCheckFirstName);
+      console.log(student.firstName.toLowerCase());
       console.log(cleanStudentImage);
       if (
-        studentImageCheckFirstName.toLowerCase().includes(cleanStudentImage) ||
-        studentImageCheckLastName.toLowerCase().includes(cleanStudentImage)
+        student.firstName.toLowerCase().includes(cleanStudentImage) ||
+        student.lastName.toLowerCase().includes(cleanStudentImage)
       ) {
         const imageName = studentImage[i].image;
         document.querySelector(
           ".modal-content-photo"
         ).src = `assets/pics/${imageName}`;
-        console.log("with image");
-      } else {
-        // .querySelector(".modal-content-photo").src = "";
-
-        console.log("no image");
+        i = 40;
       }
     }
   });
@@ -458,6 +454,8 @@ function toggleModal() {
     modalFlag = true;
     console.log(modalFlag);
     document.querySelector(".modal-container").classList.add("hide");
+    document.querySelector(".modal-content-photo").src =
+      "assets/pics/noImage.png";
     document.querySelector(".main-container").classList.remove("disable");
   }
 }
