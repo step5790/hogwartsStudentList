@@ -377,13 +377,20 @@ function displayStudent(student) {
 
   // *********set addEventListener to each student with modal data insertion******************
   clone.querySelector(".cell").addEventListener("click", function () {
-    const modalName =
-      student.firstName + " " + student.middleName + " " + student.lastName;
+    // const modalName =
+    //   student.firstName + " " + student.middleName + " " + student.lastName;
     toggleModal();
-    document.querySelector(".student-name").textContent = modalName.replace(
-      "—",
-      ""
-    );
+    // document.querySelector(".student-name").textContent = modalName.replace(
+    //   "—",
+    //   ""
+    // );
+    document.querySelector(".student-name").textContent =
+      student.firstName.replace("—", " ");
+    document.querySelector(".student-midName").textContent =
+      student.middleName.replace("—", " ");
+    document.querySelector(".student-lastName").textContent =
+      student.lastName.replace("—", " ");
+
     document.querySelector(".student-nickname span").textContent =
       student.nickName;
     document.querySelector(".student-house span").textContent = student.house;
@@ -422,19 +429,46 @@ function displayStudent(student) {
       // const studentImageCheckFirstName = student.firstName.toLowerCase();
       const cleanStudentImage = studentImage[i].image.substring(
         0,
-        studentImage[i].image.indexOf("_")
+        studentImage[i].image.indexOf(".")
       );
-      console.log(student.firstName.toLowerCase());
-      console.log(cleanStudentImage);
+
+      console.log(
+        document.querySelector(".student-name").textContent.toLowerCase()
+      );
+      console.log(
+        document.querySelector(".student-lastName").textContent.toLowerCase()
+      );
+
       if (
-        student.firstName.toLowerCase().includes(cleanStudentImage) ||
-        student.lastName.toLowerCase().includes(cleanStudentImage)
+        cleanStudentImage.includes(
+          document.querySelector(".student-name").textContent.toLowerCase()
+        )
       ) {
         const imageName = studentImage[i].image;
         document.querySelector(
           ".modal-content-photo"
         ).src = `assets/pics/${imageName}`;
-        i = 40;
+        // i = 40;
+        console.log(
+          document.querySelector(".student-name").textContent.toLowerCase()
+        );
+        break;
+      }
+
+      if (
+        cleanStudentImage.includes(
+          document.querySelector(".student-lastName").textContent.toLowerCase()
+        )
+      ) {
+        const imageName = studentImage[i].image;
+        document.querySelector(
+          ".modal-content-photo"
+        ).src = `assets/pics/${imageName}`;
+        // i = 40;
+        console.log(
+          document.querySelector(".student-lastName").textContent.toLowerCase()
+        );
+        break;
       }
     }
   });

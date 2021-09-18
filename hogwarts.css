@@ -234,11 +234,6 @@ span.close {
   margin-right: 1rem;
 }
 
-p.student-name {
-  text-align: center;
-  font-size: 30px;
-}
-
 .student-details > p span {
   font-weight: lighter;
 }
@@ -319,4 +314,16 @@ p.student-prefect {
 
 .student-count > span {
   font-weight: lighter;
+}
+
+.student-fullName {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 30px;
+  justify-content: center;
+}
+.student-fullName > p {
+  margin-left: 10px;
 }
