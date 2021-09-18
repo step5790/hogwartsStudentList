@@ -8,8 +8,8 @@ const urlImage = "../filenames.json";
 
 let allStudent = [];
 let studentImage = [];
+let studentBlood = [];
 let jsonData = [];
-let useFilterData = [];
 let filteredData = [];
 let modalFlag = true;
 let numberOfGryffindor = 0;
@@ -61,25 +61,39 @@ function init() {
       prepareImageDatas(jsonImage);
     });
 
-  function prepareImageDatas(jsonImage) {
-    studentImage = jsonImage;
-    console.log(studentImage);
-    // allImage = jsonImage.map(prepareImageData);
+  function prepareImageDatas(jsonImages) {
+    studentImage = jsonImages;
   }
 
-  // function prepareImageData(images) {
-  //   const imageLink = Object.create(studentImagePrototype);
-  //   const imageStudentLink = images.image;
+  // ***********fetch family blood************
+  fetch(urlFamilies)
+    .then((response) => response.json())
+    .then((jsonBlood) => {
+      prepareBloodDatas(jsonBlood);
+    });
 
-  //   console.log(imageStudentLink);
-  //   return imageLink;
-  // }
-  // *************blood status************
-  //   fetch(urlFamilies)
-  //     .then((e) => e.json())
-  //     .then((data) => {
-  //       findBloodStatus(data);
-  //     });
+  function prepareBloodDatas(jsonBloods) {
+    studentBlood = jsonBloods;
+    let i = 0;
+    // console.log(allStudent[0].lastName);
+    for (i = 0; i < allStudent.length; i++) {
+      const halfBlood = studentBlood.half;
+      const pureBlood = studentBlood.pure;
+
+      console.log(allStudent[i].lastName);
+
+      if (halfBlood.includes(allStudent[i].lastName)) {
+        console.log("half");
+        allStudent[i].bloodStatus = "Half";
+      } else if (pureBlood.includes(allStudent[i].lastName)) {
+        console.log("pure");
+        allStudent[i].bloodStatus = "Pure";
+      } else {
+        allStudent[i].bloodStatus = "Muggle";
+        console.log("Muggle");
+      }
+    }
+  }
 
   //   *******************clean and load student data***************
   function prepareDatas(jsonData) {
@@ -149,6 +163,13 @@ function init() {
     } else if (newMiddleName !== " ") {
       student.middleName = newMiddleName;
     }
+
+    // **********algorith for blood-status*******************
+    // const bloodFam = studentBlood.half.toString().includes("Corner");
+    // if (bloodFam.includes(student.lastName)) {
+    //   student.bloodStatus = "half";
+    //   console.log("half");
+    // }
 
     // **********call count students function*********
     studentCounter(student);
@@ -377,13 +398,8 @@ function displayStudent(student) {
 
   // *********set addEventListener to each student with modal data insertion******************
   clone.querySelector(".cell").addEventListener("click", function () {
-    // const modalName =
-    //   student.firstName + " " + student.middleName + " " + student.lastName;
     toggleModal();
-    // document.querySelector(".student-name").textContent = modalName.replace(
-    //   "—",
-    //   ""
-    // );
+
     document.querySelector(".student-name").textContent =
       student.firstName.replace("—", " ");
     document.querySelector(".student-midName").textContent =
@@ -395,6 +411,7 @@ function displayStudent(student) {
       student.nickName;
     document.querySelector(".student-house span").textContent = student.house;
     document.querySelector(".student-gender span").textContent = student.gender;
+
     document.querySelector(".student-blood span").textContent =
       student.bloodStatus;
 
@@ -430,13 +447,6 @@ function displayStudent(student) {
       const cleanStudentImage = studentImage[i].image.substring(
         0,
         studentImage[i].image.indexOf(".")
-      );
-
-      console.log(
-        document.querySelector(".student-name").textContent.toLowerCase()
-      );
-      console.log(
-        document.querySelector(".student-lastName").textContent.toLowerCase()
       );
 
       if (
