@@ -26,7 +26,7 @@ const studentPrototype = {
   bloodStatus: "—",
   house: "—",
   prefect: true,
-  inquisitorial: true,
+  inquisitorial: false,
   enrolled: true,
 };
 
@@ -381,7 +381,7 @@ function displayStudent(student) {
   }
 
   if (student.inquisitorial) {
-    insiquisitorStatus = "Inquisitorial";
+    insiquisitorStatus = "Added to Inquisitorial Squad";
   } else {
     insiquisitorStatus = "";
   }
@@ -412,7 +412,7 @@ function displayStudent(student) {
 
   // *********set addEventListener to each student with modal data insertion******************
   clone.querySelector(".cell").addEventListener("click", function () {
-    toggleModal();
+    toggleModal(student);
 
     document.querySelector(".student-name").textContent =
       student.firstName.replace("—", " ");
@@ -495,6 +495,32 @@ function displayStudent(student) {
         break;
       }
     }
+
+    // ***********add to inquisitorial squad**************
+    document
+      .querySelector(".inquisitor")
+      .addEventListener("click", function () {
+        const search = (student) =>
+          student.firstName ===
+          document.querySelector(".student-name").textContent;
+
+        const index = allStudent.findIndex(search);
+        console.log(index);
+
+        if (allStudent[index].bloodStatus === "Pure") {
+          console.log("inquisitorial");
+          document.querySelector(".student-inquisitor span").textContent =
+            "Added to Inquisitorial Squad";
+          allStudent[index].inquisitorial = true;
+        } else if (allStudent[index].house === "Slytherin") {
+          console.log("inquisitorial");
+          document.querySelector(".student-inquisitor span").textContent =
+            "Added to Inquisitorial Squad";
+          allStudent[index].inquisitorial = true;
+        } else {
+          console.log("not inquisitorial");
+        }
+      });
   });
 
   // append clone to list
@@ -514,6 +540,15 @@ function toggleModal() {
     document.querySelector(".modal-container").classList.add("hide");
     document.querySelector(".modal-content-photo").src =
       "assets/pics/noImage.png";
+
+    document.querySelector(".student-nickname span").innerHTML = "";
+    document.querySelector(".student-house span").innerHTML = "";
+    document.querySelector(".student-gender span").innerHTML = "";
+    document.querySelector(".student-blood span").innerHTML = "";
+    document.querySelector(".student-enrolled span").innerHTML = "";
+    document.querySelector(".student-inquisitor span").innerHTML = "";
+    document.querySelector(".student-prefect span").innerHTML = "";
+
     document.querySelector(".main-container").classList.remove("disable");
   }
 }

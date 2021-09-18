@@ -32,9 +32,12 @@
             <p class="student-gender">Gender:&nbsp;<span>Boy</span></p>
             <p class="student-blood">Blood-Status:&nbsp;<span>Hybrid</span></p>
             <p class="student-status">Status:</p>
-            <p class="student-enrolled"><span></span></p>
-            <p class="student-inquisitor"><span></span></p>
-            <p class="student-prefect"><span></span></p>
+
+            <div class="status-group">
+              <p class="student-enrolled"><span></span></p>
+              <p class="student-inquisitor"><span></span></p>
+              <p class="student-prefect"><span></span></p>
+            </div>
 
           </div>
         </div>
@@ -44,7 +47,7 @@
     <div class="modal-button">
       <div class="button-group">
         <button class="prefect">MAKE PREFECT</button>
-        <button class="inquisitor">MAKE INQUISITOR</button>
+        <button class="inquisitor">ADD TO INQUISITOR</button>
       </div>
       <button class="expel">EXPEL STUDENT</button>
     </div>
@@ -76,7 +79,7 @@
         <option value="inquisitorial" data-action="filter" data-filter="inquisitorial">INQUISITORIAL</option>
       </select>
 
-      
+
 
       <input type="text" placeholder="Search..." class="searchInput" />
     </div>
