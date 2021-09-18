@@ -242,8 +242,14 @@ function filterList(filteredList) {
   } else if (settings.filterBy === "prefects") {
     filteredList = allStudent.filter(isPrefects);
     console.log("Number of " + settings.filterBy + " " + filteredList.length);
-  } else if (settings.filterBy === "blood-status") {
-    filteredList = allStudent.filter(isBloodStatus);
+  } else if (settings.filterBy === "Pure") {
+    filteredList = allStudent.filter(isPure);
+    console.log("Number of " + settings.filterBy + " " + filteredList.length);
+  } else if (settings.filterBy === "Half") {
+    filteredList = allStudent.filter(isHalf);
+    console.log("Number of " + settings.filterBy + " " + filteredList.length);
+  } else if (settings.filterBy === "Muggle") {
+    filteredList = allStudent.filter(isMuggle);
     console.log("Number of " + settings.filterBy + " " + filteredList.length);
   } else if (settings.filterBy === "inquisitorial") {
     filteredList = allStudent.filter(isInquisitorial);
@@ -281,8 +287,16 @@ function isPrefects(student) {
   return student.prefect === true;
 }
 
-function isBloodStatus(student) {
-  return student.bloodStatus === "—";
+function isPure(student) {
+  return student.bloodStatus === "Pure";
+}
+
+function isHalf(student) {
+  return student.bloodStatus === "Half";
+}
+
+function isMuggle(student) {
+  return student.bloodStatus === "Muggle";
 }
 
 function isInquisitorial(student) {
