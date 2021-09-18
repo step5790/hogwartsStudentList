@@ -196,7 +196,8 @@ button.generate:hover {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  margin-bottom: 15px;
 }
 
 span.close {
@@ -208,10 +209,6 @@ span.close {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-content: center;
-  justify-content: space-evenly;
-  align-items: center;
-  margin-bottom: 2rem;
 }
 
 .modal-content-photo {
@@ -224,6 +221,7 @@ span.close {
   box-shadow: 18px 18px 8px -10px rgb(0 0 0 / 30%);
   border-top-left-radius: 100px;
   border-bottom-right-radius: 100px;
+  margin-top: 80px;
 }
 
 .crest-logo {
@@ -285,7 +283,7 @@ button.expel:hover {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  line-height: 0px;
+  line-height: 10px;
 }
 
 p.student-enrolled {
