@@ -50,6 +50,8 @@ function registerButton() {
   document
     .querySelector(".inquisitor")
     .addEventListener("click", addInquisitor);
+
+  document.querySelector(".expel").addEventListener("click", expel);
 }
 
 // ***************initialization**************
@@ -431,13 +433,6 @@ function displayStudent(student) {
   clone.querySelector(".cell").addEventListener("click", function () {
     toggleModal(student);
 
-    // // ********check if student is already inquisitorial**********
-    // if (student.inquisitorial === true) {
-    //   document.querySelector(".inquisitor").style.background = "orange";
-    //   document.querySelector(".inquisitor").innerHTML = "REMOVE INQUISITOR";
-    // }
-    // **********************************************************
-
     document.querySelector(".student-name").textContent =
       student.firstName.replace("—", " ");
     document.querySelector(".student-midName").textContent =
@@ -452,9 +447,8 @@ function displayStudent(student) {
 
     document.querySelector(".student-blood span").textContent =
       student.bloodStatus;
-
-    document.querySelector(".student-enrolled span").textContent =
-      enrolledStatus;
+    // document.querySelector(".student-enrolled span").textContent =
+    //   enrolledStatus;
     document.querySelector(".student-inquisitor span").textContent =
       insiquisitorStatus;
     document.querySelector(".student-prefect span").textContent = prefectStatus;
@@ -519,65 +513,13 @@ function displayStudent(student) {
         break;
       }
     }
-
-    // ***********add to inquisitorial squad**************
-    // document
-    //   .querySelector(".inquisitor")
-    //   .addEventListener("click", function () {
-    //     const search = (student) =>
-    //       student.firstName ===
-    //       document.querySelector(".student-name").textContent;
-
-    //     const index = allStudent.findIndex(search);
-    //     if (allStudent[index].inquisitorial === true) {
-    //       console.log(allStudent[index].inquisitorial);
-    //       // *******************
-    //       if (allStudent[index].bloodStatus === "Pure") {
-    //         console.log(student.inquisitorial);
-    //         document.querySelector(".inquisitor").style.background =
-    //           "rgb(247, 188, 137)";
-    //         document.querySelector(".student-inquisitor span").textContent = "";
-    //         allStudent[index].inquisitorial = false;
-    //         document.querySelector(".inquisitor").innerHTML =
-    //           "ADD TO INQUISITOR";
-    //       } else if (allStudent[index].house === "Slytherin") {
-    //         console.log("inquisitorial");
-    //         document.querySelector(".inquisitor").style.background =
-    //           "rgb(247, 188, 137)";
-    //         document.querySelector(".student-inquisitor span").textContent = "";
-    //         allStudent[index].inquisitorial = false;
-    //         document.querySelector(".inquisitor").innerHTML =
-    //           "ADD TO INQUISITOR";
-    //       }
-    //       // ************************
-    //     } else if (allStudent[index].inquisitorial === false) {
-    //       console.log(allStudent[index].inquisitorial);
-    //       // ***********************
-    //       if (allStudent[index].bloodStatus === "Pure") {
-    //         console.log("inquisitorial");
-    //         document.querySelector(".inquisitor").style.background = "orange";
-    //         document.querySelector(".student-inquisitor span").textContent =
-    //           "Inquisitorial";
-    //         allStudent[index].inquisitorial = true;
-    //         document.querySelector(".inquisitor").innerHTML =
-    //           "REMOVE INQUISITOR";
-    //       } else if (allStudent[index].house === "Slytherin") {
-    //         console.log("inquisitorial");
-    //         document.querySelector(".inquisitor").style.background = "orange";
-    //         document.querySelector(".student-inquisitor span").textContent =
-    //           "Inquisitorial";
-    //         allStudent[index].inquisitorial = true;
-    //         document.querySelector(".inquisitor").innerHTML =
-    //           "REMOVE INQUISITOR";
-    //       }
-    //       // ************************
-    //     }
-    //   });
   });
 
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
 }
+
+// *******************adding inquisitor******************
 
 function addInquisitor() {
   const findName = document.querySelector(".student-name").textContent;
@@ -645,6 +587,23 @@ function addInquisitor() {
       }
     }
   }
+
+  buildList();
+}
+
+// **************expel student******************
+function expel() {
+  const findName = document.querySelector(".student-name").textContent;
+
+  for (let i = 0; i < allStudent.length; i++) {
+    if (allStudent[i].firstName === findName) {
+      allStudent[i].enrolled = false;
+      document.querySelector(".revoked").classList.remove("hide");
+      document.querySelector(".student-enrolled").innerHTML = "Expelled";
+    }
+  }
+
+  buildList();
 }
 
 // ************************** open modal ******************
@@ -672,6 +631,14 @@ function toggleModal(student) {
     document.querySelector(".inquisitor").disabled = false;
     document.querySelector(".student-inquisitor span").innerHTML =
       "Inquisitorial";
+  }
+
+  if (student.enrolled) {
+    document.querySelector(".revoked").classList.add("hide");
+    document.querySelector(".student-enrolled").innerHTML = "Enrolled";
+  } else {
+    document.querySelector(".revoked").classList.remove("hide");
+    document.querySelector(".student-enrolled").innerHTML = "Expelled";
   }
 
   if (modalFlag) {

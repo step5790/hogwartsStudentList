@@ -323,6 +323,20 @@ p.student-prefect {
   font-size: 30px;
   justify-content: center;
 }
+
 .student-fullName > p {
   margin-left: 10px;
+}
+
+.revoked {
+  background-image: url(assets/revoked.png);
+  width: 400px;
+  height: 400px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: absolute;
+  left: 50%;
+  margin-left: -150px;
+  top: 50%;
+  margin-top: -150px;
 }
