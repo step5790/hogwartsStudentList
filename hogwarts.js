@@ -14,10 +14,11 @@ let studentBlood = [];
 let jsonData = [];
 let filteredData = [];
 let modalFlag = true;
-let numberOfGryffindor = 0;
-let numberOfHufflepuff = 0;
-let numberOfSlytherin = 0;
-let numberOfRavenclaw = 0;
+let Gryffindor = 2;
+let Hufflepuff = 2;
+let Slytherin = 2;
+let Ravenclaw = 2;
+let expelled = 0;
 let inquisitorFlag = true;
 
 const studentPrototype = {
@@ -52,6 +53,8 @@ function registerButton() {
     .addEventListener("click", addInquisitor);
 
   document.querySelector(".expel").addEventListener("click", expel);
+
+  document.querySelector(".prefect").addEventListener("click", prefect);
 }
 
 // ***************initialization**************
@@ -113,7 +116,11 @@ function init() {
   //   *******************clean and load student data***************
   function prepareDatas(jsonData) {
     allStudent = jsonData.map(prepareData);
-    // TODO: This might not be the function we want to call first
+
+    // ******display all stundet count number************
+    document.querySelector(".numberOfstudents span").innerHTML =
+      allStudent.length;
+
     displayList(allStudent);
   }
 
@@ -187,7 +194,7 @@ function init() {
     // }
 
     // **********call count students function*********
-    studentCounter(student);
+
     return student;
   }
 
@@ -346,23 +353,17 @@ function sortList(sortedList) {
   return sortedList;
 }
 
-// ********counting students*********
-function studentCounter(student) {
-  if (student.house === "Ravenclaw") {
-    numberOfRavenclaw++;
-  } else if (student.house === "Hufflepuff") {
-    numberOfHufflepuff++;
-  } else if (student.house === "Slytherin") {
-    numberOfSlytherin++;
-  } else if (student.house === "Gryffindor") {
-    numberOfGryffindor++;
-  }
-}
-
 // ******build list for combining filter and sort************
 function buildList() {
   const currentList = filterList(allStudent);
   const sortedList = sortList(currentList);
+
+  // ******display count number************
+
+  document.querySelector(".numberOfenrolled span").innerHTML =
+    allStudent.length - expelled;
+  document.querySelector(".numberOfexpelled span").innerHTML = expelled;
+
   console.log(sortedList);
   displayList(sortedList);
 }
@@ -405,20 +406,6 @@ function displayStudent(student) {
     insiquisitorStatus = "";
   }
 
-  // ******display count number************
-  document.querySelector(".numberOfstudents span").innerHTML =
-    allStudent.length;
-  document.querySelector(".numberOfenrolled span").innerHTML = "";
-  document.querySelector(".numberOfexpelled span").innerHTML = "";
-  document.querySelector(".numberOfGryffindor span").innerHTML =
-    numberOfGryffindor;
-  document.querySelector(".numberOfHufflepuff span").innerHTML =
-    numberOfHufflepuff;
-  document.querySelector(".numberOfSlytherin span").innerHTML =
-    numberOfSlytherin;
-  document.querySelector(".numberOfRavenclaw span").innerHTML =
-    numberOfRavenclaw;
-
   // set clone data
   clone.querySelector("[data-field=lastName]").textContent = student.lastName;
   clone.querySelector("[data-field=firstName]").textContent = student.firstName;
@@ -451,7 +438,7 @@ function displayStudent(student) {
     //   enrolledStatus;
     document.querySelector(".student-inquisitor span").textContent =
       insiquisitorStatus;
-    document.querySelector(".student-prefect span").textContent = prefectStatus;
+    // document.querySelector(".student-prefect span").textContent = prefectStatus;
 
     // ***************** check student house for color *******************
     const houseColor = student.house.trim();
@@ -600,9 +587,55 @@ function expel() {
       allStudent[i].enrolled = false;
       document.querySelector(".revoked").classList.remove("hide");
       document.querySelector(".student-enrolled").innerHTML = "Expelled";
+      expelled++;
     }
   }
 
+  buildList();
+}
+
+function prefect() {
+  const findName = document.querySelector(".student-name").textContent;
+
+  for (let i = 0; i < allStudent.length; i++) {
+    if (allStudent[i].firstName === findName) {
+      if (allStudent[i].prefect === false) {
+        if (allStudent[i].house === "Slytherin") {
+          if (Slytherin > 0) {
+            allStudent[i].prefect = true;
+            document.querySelector(".student-prefect").innerHTML = "Prefect";
+            Slytherin--;
+          } else {
+            alert("Slytherin Prefect Full");
+          }
+        } else if (allStudent[i].house === "Hufflepuff") {
+          if (Hufflepuff > 0) {
+            allStudent[i].prefect = true;
+            document.querySelector(".student-prefect").innerHTML = "Prefect";
+            Hufflepuff--;
+          } else {
+            alert("Hufflepuff Prefect Full");
+          }
+        } else if (allStudent[i].house === "Gryffindor") {
+          if (Gryffindor > 0) {
+            allStudent[i].prefect = true;
+            document.querySelector(".student-prefect").innerHTML = "Prefect";
+            Gryffindor--;
+          } else {
+            alert("Gryffindor Prefect Full");
+          }
+        } else if (allStudent[i].house === "Ravenclaw") {
+          if (Ravenclaw > 0) {
+            allStudent[i].prefect = true;
+            document.querySelector(".student-prefect").innerHTML = "Prefect";
+            Ravenclaw--;
+          } else {
+            alert("Ravenclaw Prefect Full");
+          }
+        }
+      }
+    }
+  }
   buildList();
 }
 
@@ -639,6 +672,12 @@ function toggleModal(student) {
   } else {
     document.querySelector(".revoked").classList.remove("hide");
     document.querySelector(".student-enrolled").innerHTML = "Expelled";
+  }
+
+  if (student.prefect) {
+    document.querySelector(".student-prefect").innerHTML = "Prefect";
+  } else {
+    document.querySelector(".student-prefect").innerHTML = "";
   }
 
   if (modalFlag) {
