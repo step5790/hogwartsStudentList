@@ -215,7 +215,7 @@ span.close {
 .modal-content-photo {
   height: 300px;
   width: 280px;
-  background: red;
+  background: transparent;
   background-repeat: no-repeat;
   background-size: cover;
   margin: 2rem;

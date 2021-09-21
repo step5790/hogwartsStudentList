@@ -47,7 +47,7 @@
     <div class="modal-button">
       <div class="button-group">
         <button class="prefect">MAKE PREFECT</button>
-        <button class="inquisitor">ADD TO INQUISITOR</button>
+        <button class="inquisitor"></button>
       </div>
       <button class="expel">EXPEL STUDENT</button>
     </div>
@@ -73,75 +73,86 @@
         <option value="enrolled" data-action="filter" data-filter="enrolled">ENROLLED</option>
         <option value="expelled" data-action="filter" data-filter="expelled">EXPELLED</option>
         <option value="prefects" data-action="filter" data-filter="prefects">PREFECTS</option>
-        <option value="Pure" data-action="filter" data-filter="blood-status">PURE WIZARD</option>
-        <option value="Half" data-action="filter" data-filter="blood-status">HALF WIZARD</option>
-        <option value="Muggle" data-action="filter" data-filter="blood-status">MUGGLE</option>
+        <option value="pure" data-action="filter" data-filter="blood-status">PURE WIZARD</option>
+        <option value="half" data-action="filter" data-filter="blood-status">HALF WIZARD</option>
+        <option value="muggle" data-action="filter" data-filter="blood-status">MUGGLE</option>
         <option value="inquisitorial" data-action="filter" data-filter="inquisitorial">INQUISITORIAL</option>
       </select>
 
 
+        <select name="options" id="dropDown2" onchange="selectFilter2()">
+          <option value="all" data-action="filter" data-filter="all">ALL</option>
+          <option value="enrolled" data-action="filter" data-filter="enrolled">ENROLLED</option>
+          <option value="expelled" data-action="filter" data-filter="expelled">EXPELLED</option>
+          <option value="prefects" data-action="filter" data-filter="prefects">PREFECTS</option>
+          <option value="pure" data-action="filter" data-filter="blood-status">PURE WIZARD</option>
+          <option value="half" data-action="filter" data-filter="blood-status">HALF WIZARD</option>
+          <option value="muggle" data-action="filter" data-filter="blood-status">MUGGLE</option>
+          <option value="inquisitorial" data-action="filter" data-filter="inquisitorial">INQUISITORIAL</option>
+        </select>
 
-      <input type="text" placeholder="Search..." class="searchInput" />
-    </div>
 
-    <div class="table-container">
-      <table id="list">
-        <thead>
-          <tr id="sorting">
-            <th data-action="sort" data-sort-direction="asc" data-sort="lastName">
-              Last Name
-            </th>
-            <th data-action="sort" data-sort-direction="desc" data-sort="firstName">
-              First Name
-            </th>
-            <th data-action="sort" data-sort-direction="asc" data-sort="midName">
-              Middle Name
-            </th>
-            <th data-action="sort" data-sort-direction="desc" data-sort="nickName">
-              Nickname
-            </th>
-            <th data-action="sort" data-sort-direction="asc" data-sort="gender">
-              Gender
-            </th>
-            <th data-action="sort" data-sort-direction="desc" data-sort="house">
-              House
-            </th>
-            <th data-action="sort" data-sort-direction="asc" data-sort="status">
-              Status
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- template will be copied and inserted here -->
-        </tbody>
-      </table>
-    </div>
+        <input type="text" placeholder="Search..." class="searchInput" />
+      </div>
 
-    <div class="button-container">
-      <button div class="generate">VIEW</button>
-    </div>
+      <div class="table-container">
+        <table id="list">
+          <thead>
+            <tr id="sorting">
+              <th data-action="sort" data-sort-direction="asc" data-sort="lastName">
+                Last Name
+              </th>
+              <th data-action="sort" data-sort-direction="desc" data-sort="firstName">
+                First Name
+              </th>
+              <th data-action="sort" data-sort-direction="asc" data-sort="midName">
+                Middle Name
+              </th>
+              <th data-action="sort" data-sort-direction="desc" data-sort="nickName">
+                Nickname
+              </th>
+              <th data-action="sort" data-sort-direction="asc" data-sort="gender">
+                Gender
+              </th>
+              <th data-action="sort" data-sort-direction="desc" data-sort="house">
+                House
+              </th>
+              <th data-action="sort" data-sort-direction="asc" data-sort="status">
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- template will be copied and inserted here -->
+          </tbody>
+        </table>
+      </div>
 
-    <div class="student-count">
-      <p class="numberOfstudents">Students:&nbsp;<span></span></p>
-      <p class="numberOfenrolled">Enrolled Students:&nbsp;<span></span></p>
-      <p class="numberOfexpelled">Expelled Students:&nbsp;<span></span></p>
-      <p class="numberOfGryffindor">Gryffindor:&nbsp;<span></span></p>
-      <p class="numberOfHufflepuff">Hufflepuff:&nbsp;<span></span></p>
-      <p class="numberOfSlytherin">Slytherin:&nbsp;<span></span></p>
-      <p class="numberOfRavenclaw">Ravenclaw:&nbsp;<span></span></p>
-    </div>
+      <div class="button-container">
+        <button div class="generate">VIEW</button>
+      </div>
 
-    <template id="student">
-      <tr class="cell">
-        <td data-field="lastName">Last Name</td>
-        <td data-field="firstName">First Name</td>
-        <td data-field="midName">Middle Name</td>
-        <td data-field="nickName">Nickname</td>
-        <td data-field="gender">Gender</td>
-        <td data-field="houseName">House</td>
-        <td data-field="status">Status</td>
-      </tr>
-    </template>
+      <div class="student-count">
+        <p class="numberOfstudents">Students:&nbsp;<span></span></p>
+        <p class="numberOfenrolled">Enrolled Students:&nbsp;<span></span></p>
+        <p class="numberOfexpelled">Expelled Students:&nbsp;<span></span></p>
+        <p class="numberOfGryffindor">Gryffindor:&nbsp;<span></span></p>
+        <p class="numberOfHufflepuff">Hufflepuff:&nbsp;<span></span></p>
+        <p class="numberOfSlytherin">Slytherin:&nbsp;<span></span></p>
+        <p class="numberOfRavenclaw">Ravenclaw:&nbsp;<span></span></p>
+      </div>
+
+      <template id="student">
+        <tr class="cell">
+          <td data-field="lastName">Last Name</td>
+          <td data-field="firstName">First Name</td>
+          <td data-field="midName">Middle Name</td>
+          <td data-field="nickName">Nickname</td>
+          <td data-field="gender">Gender</td>
+          <td data-field="houseName">House</td>
+          <td data-field="status">Status</td>
+        </tr>
+      </template>
   </main>
 </body>
 <script src="hogwarts.js"></script>
