@@ -18,7 +18,12 @@ let Gryffindor = 2;
 let Hufflepuff = 2;
 let Slytherin = 2;
 let Ravenclaw = 2;
+let numberOfGryffindor = 0;
+let numberOfHufflepuff = 0;
+let numberOfSlytherin = 0;
+let numberOfRavenclaw = 0;
 let expelled = 0;
+
 let inquisitorFlag = true;
 
 const studentPrototype = {
@@ -92,9 +97,9 @@ function init() {
 
   function prepareBloodDatas(jsonBloods) {
     studentBlood = jsonBloods;
-    let i = 0;
+    // let i = 0;
     // console.log(allStudent[0].lastName);
-    for (i = 0; i < allStudent.length; i++) {
+    for (let i = 0; i < allStudent.length; i++) {
       const halfBlood = studentBlood.half;
       const pureBlood = studentBlood.pure;
 
@@ -121,7 +126,13 @@ function init() {
     document.querySelector(".numberOfstudents span").innerHTML =
       allStudent.length;
 
+    console.log(allStudent[0].house);
+
+    document.querySelector(".numberOfenrolled span").innerHTML =
+      allStudent.length - expelled;
+
     displayList(allStudent);
+    counterStudent();
   }
 
   function prepareData(students) {
@@ -186,19 +197,37 @@ function init() {
       student.middleName = newMiddleName;
     }
 
-    // **********algorith for blood-status*******************
-    // const bloodFam = studentBlood.half.toString().includes("Corner");
-    // if (bloodFam.includes(student.lastName)) {
-    //   student.bloodStatus = "half";
-    //   console.log("half");
-    // }
-
-    // **********call count students function*********
-
     return student;
   }
 
   registerButton();
+}
+
+function counterStudent() {
+  // const allTableData = document.getElementById("list");
+  // const totalNumbeOfRows = allTableData.rows.length;
+  // console.log("Total Number Of Rows=" + totalNumbeOfRows);
+
+  for (let i = 0; i < allStudent.length; i++) {
+    if (allStudent[i].house === "Gryffindor") {
+      console.log(allStudent[i].house);
+      numberOfGryffindor++;
+      document.querySelector(".numberOfGryffindor span").innerHTML =
+        numberOfGryffindor;
+    } else if (allStudent[i].house === "Slytherin") {
+      numberOfSlytherin++;
+      document.querySelector(".numberOfSlytherin span").innerHTML =
+        numberOfSlytherin;
+    } else if (allStudent[i].house === "Hufflepuff") {
+      numberOfHufflepuff++;
+      document.querySelector(".numberOfHufflepuff span").innerHTML =
+        numberOfHufflepuff;
+    } else if (allStudent[i].house === "Ravenclaw") {
+      numberOfRavenclaw++;
+      document.querySelector(".numberOfRavenclaw span").innerHTML =
+        numberOfRavenclaw;
+    }
+  }
 }
 
 // **************filter events, get target for sort and filter value*********************
@@ -458,9 +487,7 @@ function displayStudent(student) {
     }
 
     // **************check student for image***************
-    let i = 0;
-
-    for (i = 0; i < studentImage.length; i++) {
+    for (let i = 0; i < studentImage.length; i++) {
       // const studentImageCheckLastName = student.lastName.toLowerCase();
       // const studentImageCheckFirstName = student.firstName.toLowerCase();
       const cleanStudentImage = studentImage[i].image.substring(
@@ -501,6 +528,7 @@ function displayStudent(student) {
       }
     }
   });
+  // *********student counter by house***********
 
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
