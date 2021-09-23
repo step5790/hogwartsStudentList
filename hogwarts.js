@@ -243,12 +243,6 @@ function setFilter(filter) {
   buildList();
 }
 
-// ******2nd filter***********
-function selectFilter2() {
-  const filter = document.getElementById("dropDown2").value;
-  setFilter(filter);
-}
-
 // ********setting for selectSort
 function selectSort(event) {
   const sortBy = event.target.dataset.sort;
@@ -316,23 +310,33 @@ function filterList(filteredList) {
 
 //  filtering function call
 function isGryffindor(student) {
-  return student.house === "Gryffindor";
+  if (student.enrolled === true) {
+    return student.house === "Gryffindor";
+  }
 }
 
 function isSlytherin(student) {
-  return student.house === "Slytherin";
+  if (student.enrolled === true) {
+    return student.house === "Slytherin";
+  }
 }
 
 function isHufflepuff(student) {
-  return student.house === "Hufflepuff";
+  if (student.enrolled === true) {
+    return student.house === "Hufflepuff";
+  }
 }
 
 function isRavenclaw(student) {
-  return student.house === "Ravenclaw";
+  if (student.enrolled === true) {
+    return student.house === "Ravenclaw";
+  }
 }
 
 function isEnrolled(student) {
-  return student.enrolled === true;
+  if (student.enrolled === true) {
+    return student.enrolled === true;
+  }
 }
 
 function isExpelled(student) {
@@ -340,23 +344,33 @@ function isExpelled(student) {
 }
 
 function isPrefects(student) {
-  return student.prefect === true;
+  if (student.enrolled === true) {
+    return student.prefect === true;
+  }
 }
 
 function isPure(student) {
-  return student.bloodStatus === "Pure";
+  if (student.enrolled === true) {
+    return student.bloodStatus === "Pure";
+  }
 }
 
 function isHalf(student) {
-  return student.bloodStatus === "Half";
+  if (student.enrolled === true) {
+    return student.bloodStatus === "Half";
+  }
 }
 
 function isMuggle(student) {
-  return student.bloodStatus === "Muggle";
+  if (student.enrolled === true) {
+    return student.bloodStatus === "Muggle";
+  }
 }
 
 function isInquisitorial(student) {
-  return student.inquisitorial === true;
+  if (student.enrolled === true) {
+    return student.inquisitorial === true;
+  }
 }
 
 // *******************sorting algorithm***************
