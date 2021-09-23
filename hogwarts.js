@@ -747,3 +747,47 @@ function searchBar() {
     }
   }
 }
+
+// ***********hacking**********
+let keys = {
+  h: false,
+  a: false,
+  c: false,
+  k: false,
+};
+
+addEventListener("keydown", (event) => {
+  if (event.key === "h") {
+    keys.h = true;
+  }
+  if (event.key === "a") {
+    keys.a = true;
+  }
+  if (event.key === "c") {
+    keys.c = true;
+  }
+  if (event.key === "k") {
+    keys.k = true;
+  }
+
+  if (keys.h && keys.a && keys.c && keys.k) {
+    console.log("HACK MODE ENABLED");
+    document.querySelector(".hack-container").classList.remove("hide");
+    document.querySelector(".main-container").classList.add("disable");
+  }
+});
+
+addEventListener("keyup", (event) => {
+  if (event.key === "h") {
+    keys.h = false;
+  }
+  if (event.key === "a") {
+    keys.a = false;
+  }
+  if (event.key === "c") {
+    keys.c = false;
+  }
+  if (event.key === "k") {
+    keys.ka = false;
+  }
+});

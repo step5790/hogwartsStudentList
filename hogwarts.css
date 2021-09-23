@@ -149,7 +149,7 @@ button.generate:hover {
 /* ******effects******* */
 
 .disable {
-  opacity: 0.4;
+  opacity: 0.3;
   pointer-events: none;
 }
 
@@ -343,15 +343,23 @@ p.student-prefect {
 
 /* ******hacking container******/
 
+span.hack-close {
+  position: absolute;
+  right: 0px;
+  margin: 10px;
+}
+
 .hack-container {
   width: 500px;
   height: 500px;
-  background: red;
+  background: black;
   position: absolute;
   top: 50%;
   left: 50%;
   margin-top: -250px;
   margin-left: -250px;
+  z-index: 9;
+  opacity: 1;
 }
 
 .hack-rec1,
@@ -361,6 +369,10 @@ p.student-prefect {
   background: black;
   width: 250px;
   height: 250px;
+  background-image: url(assets/dumbledore.gif);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-y: 11spx;
 }
 
 .hack-recA {
@@ -394,4 +406,47 @@ p.student-prefect {
   align-items: center;
   height: 35px;
   background: black;
+}
+
+button.insert-button,
+button.random-button {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-right: 3rem;
+  padding-left: 3rem;
+  cursor: url(assets/cursor.png), auto;
+  background-color: #8defe1;
+  transition-duration: 0.4s;
+}
+
+/* ***effects****/
+
+.leftRight {
+  animation: leftRight;
+  animation-duration: 2s;
+  animation-iteration-count: initial;
+}
+
+@keyframes leftRight {
+  from {
+    transform: translateX(-100vw);
+  }
+  to {
+    transform: translateX(0vw);
+  }
+}
+
+.rightLeft {
+  animation: rightLeft;
+  animation-duration: 2s;
+  animation-iteration-count: initial;
+}
+
+@keyframes rightLeft {
+  from {
+    transform: translateX(100vw);
+  }
+  to {
+    transform: translateX(0vw);
+  }
 }
