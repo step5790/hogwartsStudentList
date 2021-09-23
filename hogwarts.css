@@ -347,6 +347,7 @@ span.hack-close {
   position: absolute;
   right: 0px;
   margin: 10px;
+  cursor: pointer;
 }
 
 .hack-container {

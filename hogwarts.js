@@ -770,24 +770,67 @@ addEventListener("keydown", (event) => {
     keys.k = true;
   }
 
+  addEventListener("keyup", (event) => {
+    if (event.key === "h") {
+      keys.h = false;
+    }
+    if (event.key === "a") {
+      keys.a = false;
+    }
+    if (event.key === "c") {
+      keys.c = false;
+    }
+    if (event.key === "k") {
+      keys.ka = false;
+    }
+  });
+
   if (keys.h && keys.a && keys.c && keys.k) {
-    console.log("HACK MODE ENABLED");
+    console.log("|||||||HACK MODE ENABLED|||||||");
+
     document.querySelector(".hack-container").classList.remove("hide");
     document.querySelector(".main-container").classList.add("disable");
+
+    modalFlag = true;
+    document.querySelector(".modal-container").classList.add("hide");
+
+    // ****hack buttons enabled****
+    document.querySelector(".hack-close").addEventListener("click", closeHack);
+    document
+      .querySelector(".random-button")
+      .addEventListener("click", randomBlood);
+    document
+      .querySelector(".insert-button")
+      .addEventListener("click", insertMe);
   }
 });
 
-addEventListener("keyup", (event) => {
-  if (event.key === "h") {
-    keys.h = false;
+function closeHack() {
+  console.log("|||||||HACK MODE DISABLED|||||||");
+  document.querySelector(".hack-container").classList.add("hide");
+  document.querySelector(".main-container").classList.remove("disable");
+}
+
+// ***********insertMe*********
+function insertMe() {
+  console.log("HACK MODE: Insert Me Enabled");
+}
+
+// ***********random blood status**********
+function randomBlood() {
+  console.log("HACK MODE: Random Blood Status Enabled");
+  for (let i = 0; i < allStudent.length; i++) {
+    if (allStudent[i].bloodStatus === "Pure") {
+      let random = Math.random();
+      if (random < 0.5) random = 0;
+      else random = 1;
+      if (random === 1) {
+        allStudent[i].bloodStatus = "Half";
+      } else {
+        allStudent[i].bloodStatus = "Muggle";
+      }
+    } else {
+      allStudent[i].bloodStatus = "Pure";
+    }
   }
-  if (event.key === "a") {
-    keys.a = false;
-  }
-  if (event.key === "c") {
-    keys.c = false;
-  }
-  if (event.key === "k") {
-    keys.ka = false;
-  }
-});
+}
