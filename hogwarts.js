@@ -23,6 +23,7 @@ let numberOfHufflepuff = 0;
 let numberOfSlytherin = 0;
 let numberOfRavenclaw = 0;
 let expelled = 0;
+let currentList = [];
 
 let inquisitorFlag = true;
 
@@ -384,7 +385,7 @@ function sortList(sortedList) {
 
 // ******build list for combining filter and sort************
 function buildList() {
-  const currentList = filterList(allStudent);
+  currentList = filterList(allStudent);
   const sortedList = sortList(currentList);
 
   // ******display count number************
@@ -609,17 +610,23 @@ function addInquisitor() {
 // **************expel student******************
 function expel() {
   const findName = document.querySelector(".student-name").textContent;
+  const findLast = document.querySelector(".student-lastName").textContent;
 
   for (let i = 0; i < allStudent.length; i++) {
     if (allStudent[i].firstName === findName) {
-      allStudent[i].enrolled = false;
-      document.querySelector(".revoked").classList.remove("hide");
-      document.querySelector(".student-enrolled").innerHTML = "Expelled";
-      expelled++;
+      if (findLast === "Espinosa") {
+        alert("The force is strong, can't be expelled!");
+      } else {
+        allStudent[i].enrolled = false;
+        document.querySelector(".revoked").classList.remove("hide");
+        document.querySelector(".student-enrolled").innerHTML = "Expelled";
+        expelled++;
+      }
     }
   }
 
-  buildList();
+  // buildList();
+  filterList(currentList);
 }
 
 function prefect() {
@@ -814,6 +821,23 @@ function closeHack() {
 // ***********insertMe*********
 function insertMe() {
   console.log("HACK MODE: Insert Me Enabled");
+  const student = createObjectMyself();
+  allStudent.push(student);
+}
+
+function createObjectMyself() {
+  return {
+    firstName: "Stephen",
+    lastName: "Espinosa",
+    middleName: "Santillan",
+    nickName: "Tippen",
+    gender: "boy",
+    bloodStatus: "Pure",
+    house: "Slytherin",
+    prefect: false,
+    inquisitorial: false,
+    enrolled: true,
+  };
 }
 
 // ***********random blood status**********
