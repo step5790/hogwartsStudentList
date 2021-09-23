@@ -340,3 +340,58 @@ p.student-prefect {
   top: 50%;
   margin-top: -150px;
 }
+
+/* ******hacking container******/
+
+.hack-container {
+  width: 500px;
+  height: 500px;
+  background: red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -250px;
+  margin-left: -250px;
+}
+
+.hack-rec1,
+.hack-rec2,
+.hack-rec3,
+.hack-rec4 {
+  background: black;
+  width: 250px;
+  height: 250px;
+}
+
+.hack-recA {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+}
+
+.hack-recB {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.hack-rec1,
+.hack-rec2,
+.hack-rec3,
+.hack-rec4 > p {
+  font-size: 85px;
+  color: red;
+  text-align: center;
+  font-weight: bolder;
+}
+
+.hack-button-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 35px;
+  background: black;
+}
